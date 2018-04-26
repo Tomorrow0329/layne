@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import Api from "../config/api"
 import { Input, Button, Select } from 'element-ui';// 用到的组件 要在这边先引入
 export default {
   name: 'Layne',
@@ -105,8 +106,15 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // 这里可以发ajax请求啦～
-            alert('submit!');
+            Ajax({
+              method:'get',
+              url: Api.getDemo,
+              data: this.ruleForm
+            }).then(function (response) {
+                console.log(response);
+              }).catch(function (error) {
+                console.log(error);
+              });
           } else {
             console.log('error submit!!');
             return false;
